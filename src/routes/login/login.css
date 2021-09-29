@@ -1,0 +1,325 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: #34495e;
+}
+
+@keyframes loginbox {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 600px;
+    }
+}
+
+.loginboxWrap {
+    text-align: center;
+    margin: auto;
+    margin: auto;
+    position: relative;
+    display: inline-block;
+}
+
+.loginboxWrap.open .loginboxWrapAnimate {
+    width: 600px;
+    transition: width 1s;
+}
+
+.loginBox {
+    border: 1px solid #e4798d;
+    margin: auto;
+    width: 450px;
+    background: #fff;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 6px 6px 0 #e4798d;
+    /* 0 4px 15px rgba(0, 0, 0, 0.16); */
+}
+
+.box {
+    border: 1px solid #555;
+
+    width: 450px;
+    background: #fff;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 6px 6px 0 #555;
+}
+
+.mt-1 {
+    margin-top: 10px;
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+.loginBox h1 {
+    text-align: left;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+.loginBox p {
+    padding: 0;
+    margin: 0;
+}
+
+input {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    background-color: #ececec;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    outline: none;
+    transition: all .3s;
+    font-size: 1em;
+    border: 1px solid #ddd;
+}
+
+input:focus {
+    border: 1px solid #e4798d;
+    outline: none;
+}
+
+.btnLogin {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #e4798d;
+    font-weight: 600;
+    padding: 10px;
+    transition: all .3s;
+    font-size: 1em;
+    color: #eee;
+    cursor: pointer;
+    outline: none !important;
+    border: none;
+    height: 40px;
+    display: inline-block;
+}
+
+button {
+    border-radius: 4px;
+    background-color: #fbfbfb;
+    border: 1px solid #c7c7c7;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    outline: none !important;
+    height: 35px;
+    font-weight: 600;
+    padding: 0 20px;
+}
+
+.w-100 {
+    width: 100%
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.pmenu a {
+    display: inline-block;
+    border-right: 1px solid lightgray;
+    padding: 0 5px;
+    font-weight: 400;
+}
+
+.pmenu a:last-of-type {
+    border: none;
+}
+
+
+/* loading */
+#loading {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    border: 3px solid #ddd;
+    border-top-color: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
+    animation: rotate .5s linear infinite;
+}
+
+#loadingInline {
+    display: inline-block;
+}
+
+.logoimg.large {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 30px;
+}
+
+.or {
+    margin: 10px auto;
+    color: #aaa;
+}
+
+.linethough {
+    position: relative;
+    z-index: 1;
+    margin: 10px auto;
+}
+
+.linethough:before {
+    border-top: 1px solid #dfdfdf;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    z-index: -1;
+}
+
+.linethough span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px;
+    font-style: italic;
+}
+
+#nav {
+    text-align: center;
+    padding: 0;
+    /* background: #292929; */
+}
+
+.navlist {
+    /* list-style: none; */
+    margin: 0;
+    padding: 0;
+}
+
+.navlist li {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.navlist a {
+    color: #aaa;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0 10px;
+    display: inline-block;
+}
+
+.navlist a.active {
+    color: #000;
+    font-weight: 600;
+    background: #fff;
+}
+
+#loginedWrap {
+    border: 1px solid #eee;
+    max-width: 680px;
+    margin: 20px auto;
+    border-radius: 2px;
+}
+
+#inputsWrap {
+    margin: 20px 40px;
+}
+
+.title {
+    font-weight: 600;
+    text-align: right;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    font-size: 1.1em;
+}
+
+.linkbtn {
+    color: #e4798d !important;
+}
+
+hr {
+    margin-top: 0;
+    opacity: .2;
+}
+
+.service {
+    background-color: #eee;
+    border-radius: 50px;
+    margin: auto;
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 5px;
+}
+
+.oauth_app {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.app_preview {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    padding: 0 15px 0 0;
+    border-radius: 30px;
+    margin-left: 10px;
+}
+
+.app_preview:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.app_preview .logo {
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.app_preview .app_title {
+    font-weight: 700;
+}
