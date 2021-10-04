@@ -1,0 +1,42 @@
+.action-list {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    transition: all .2s;
+    padding: 10px;
+}
+
+.button {
+    line-height: 1.5715;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    border: 1px solid transparent;
+    box-shadow: 0 2px #00000004;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 16px;
+    border-radius: 2px;
+    color: #000000d9;
+    border-color: #d9d9d9;
+    background: #fff;
+    margin: 5px;
+    -webkit-transition: -webkit-transform .2s;
+    -webkit-transition: transform .2s;
+    transition: transform .2s;
+}
+
+.button:hover {
+    transform: translateY(-5px);
+}

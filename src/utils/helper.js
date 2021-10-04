@@ -1,9 +1,5 @@
-/**
- *
- * @param {*} method
- * @param {*} url
- * @param {*} data
- */
+import { useState } from "react";
+
 export const api_call = async function (
     method,
     url,
@@ -33,4 +29,17 @@ export const api_call = async function (
     });
 
     return result;
+};
+
+export const useModal = () => {
+    const [isShowing, setIsShowing] = useState(false);
+
+    function toggle() {
+        setIsShowing(!isShowing);
+    }
+
+    return {
+        isShowing,
+        toggle,
+    }
 };

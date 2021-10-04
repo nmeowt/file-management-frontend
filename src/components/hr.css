@@ -1,0 +1,26 @@
+.hr-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hr {
+    flex: 1;
+    height: 1px;
+    border-radius: 10px;
+    background-color: #0000000f;
+    margin: 2em 0;
+}
+
+.hr__text {
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+    padding: 0 10px;
+    border-radius: 15px;
+    margin: auto;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000d9;
+}

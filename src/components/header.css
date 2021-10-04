@@ -1,0 +1,22 @@
+.header {
+    height: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #e5ecf1;
+    width: 100%;
+
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom: 1px solid #e5ecf1;
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}

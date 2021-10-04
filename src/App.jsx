@@ -1,9 +1,11 @@
 import './App.css';
-import Login from './routes/login/login';
+import Dashboard from './routes/dashboard/Dashboard';
+import Login from './routes/login/Login';
 
 function App() {
   return (
-    <Login />
+    // <Login />
+    <Dashboard />
   );
 }
 
