@@ -1,28 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
-import Auth from '../../auth';
+import UserContext from '../../context/UserContext';
 import './login.css';
+
 const Login = () => {
-    var formBody = [];
-    const [user, setUser] = useState({ username: '', password: '' });
+    const { handleLogin, setUser, error } = useContext(UserContext)
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setUser((prev) => ({ ...prev, [name]: value }))
     }
-
     const handleSubmit = () => {
-        for (const name in user) {
-            formBody.push(name + "=" + user[name]);
-        }
-        formBody = formBody.join("&")
-
-        new Auth().login(formBody)
-            .then((result) => {
-                console.log(result)
-            }).catch((err) => {
-                console.log(err)
-            });
+        handleLogin()
     }
 
     return (
@@ -35,6 +24,7 @@ const Login = () => {
                             <div>
                                 <input className="mt-1" placeholder="Username" name="username" onChange={handleChange} />
                                 <input className="mt-1" placeholder="Password" type="password" name="password" onChange={handleChange} />
+                                {error.length > 0 ? error.map((err, index) => <i key={index} style={{ color: "rgb(254, 170, 67)", fontSize: 12 }}>{err}</i>) : null}
                                 <button className="mt-1 btnLogin" onClick={handleSubmit}>Login</button>
                             </div>
                         </div>

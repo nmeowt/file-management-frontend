@@ -7,6 +7,7 @@ export const api_call = async function (
     body = null,
     authenReqired = false
 ) {
+    console.log(url)
     if (authenReqired) {
         return;
     }
@@ -15,8 +16,10 @@ export const api_call = async function (
     let config = {
         method,
         headers,
-        mode: "cors"
+        mode: "cors",
+        credentials: 'include'
     };
+
     if (body) {
         config = { ...config, body: bodi };
     }
