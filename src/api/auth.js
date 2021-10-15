@@ -12,11 +12,9 @@ export const Auth = {
             data
         ).then((result) => {
             if (result.status === 'false') {
-                console.log("oops");
                 setError(prev => ([...prev, result.message]));
                 setIsLogined(false);
             } else {
-                console.log("oke");
                 setIsLogined(true);
                 setError([]);
             }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth } from '../auth';
+import { Auth } from '../api/auth';
 import UserContext from '../context/UserContext';
 
 const UserProvider = (props) => {

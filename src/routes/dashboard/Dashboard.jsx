@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
 import Modal from '../../components/Modal'
 import Storage from '../../components/Storage'
-import { useModal } from '../../utils/helper'
 import './dashboard.css'
 
 const Dashboard = () => {
@@ -57,17 +57,26 @@ const Dashboard = () => {
 
     const [showing, setShowing] = useState(false)
 
+
+
+
     const onCloseHandler = () => {
         setShowing(false)
     }
 
-    const onOkHandler = () => {
+    const onOkHandler = () => { }
 
+    const fetchStorage = () => {
+        StorageApi.get_all_storage(1).then((storage) => { console.log(storage); })
     }
 
     const toggle = () => {
         setShowing(true)
     }
+
+    useEffect(() => {
+        fetchStorage()
+    }, [])
 
     return (
         <div className="dashboard-layout">
