@@ -7,21 +7,21 @@ export const api_call = async function (
     body = null,
     authenReqired = false
 ) {
-    console.log(url)
     if (authenReqired) {
         return;
     }
 
+    let config = null;
     let bodi = body ? body : null;
-    let config = {
-        method,
-        headers,
-        mode: "cors",
-        credentials: 'include'
-    };
 
     if (body) {
-        config = { ...config, body: bodi };
+        config = {
+            method,
+            headers,
+            mode: "cors",
+            credentials: 'include',
+            body: bodi
+        };
     }
 
     let result = fetch(url, config).then(response => {
@@ -46,3 +46,20 @@ export const useModal = () => {
         toggle,
     }
 };
+
+export const buildUrl = (url, parameters) => {
+    let qs = "";
+    for (const key in parameters) {
+        if (parameters.hasOwnProperty(key)) {
+            const value = parameters[key];
+            qs +=
+                encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
+        }
+    }
+    if (qs.length > 0) {
+        qs = qs.substring(0, qs.length - 1); //chop off last "&"
+        url = url + "?" + qs;
+    }
+
+    return url;
+}

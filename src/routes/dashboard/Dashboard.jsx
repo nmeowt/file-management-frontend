@@ -7,58 +7,57 @@ import Storage from '../../components/Storage'
 import './dashboard.css'
 
 const Dashboard = () => {
-    const folder = [
-        {
-            name: "Folder 1",
-        },
-        {
-            name: "Folder 2",
-        },
-        {
-            name: "Folder 3",
-        },
-        {
-            name: "Folder 4",
-        },
-        {
-            name: "Folder 5",
-        },
-        {
-            name: "Folder 6",
-        },
-        {
-            name: "Folder 7",
-        }
-    ]
+    // const folder = [
+    //     {
+    //         name: "Folder 1",
+    //     },
+    //     {
+    //         name: "Folder 2",
+    //     },
+    //     {
+    //         name: "Folder 3",
+    //     },
+    //     {
+    //         name: "Folder 4",
+    //     },
+    //     {
+    //         name: "Folder 5",
+    //     },
+    //     {
+    //         name: "Folder 6",
+    //     },
+    //     {
+    //         name: "Folder 7",
+    //     }
+    // ]
 
-    const file = [
-        {
-            name: "File 1",
-        },
-        {
-            name: "File 2",
-        },
-        {
-            name: "File 3",
-        },
-        {
-            name: "File 4",
-        },
-        {
-            name: "File 5",
-        },
-        {
-            name: "File 6",
-        },
-        {
-            name: "File 7",
-        }
-    ]
+    // const file = [
+    //     {
+    //         name: "File 1",
+    //     },
+    //     {
+    //         name: "File 2",
+    //     },
+    //     {
+    //         name: "File 3",
+    //     },
+    //     {
+    //         name: "File 4",
+    //     },
+    //     {
+    //         name: "File 5",
+    //     },
+    //     {
+    //         name: "File 6",
+    //     },
+    //     {
+    //         name: "File 7",
+    //     }
+    // ]
 
     const [showing, setShowing] = useState(false)
-
-
-
+    const [folder, setFolder] = useState([])
+    const [file, setFile] = useState([])
 
     const onCloseHandler = () => {
         setShowing(false)
@@ -67,7 +66,12 @@ const Dashboard = () => {
     const onOkHandler = () => { }
 
     const fetchStorage = () => {
-        StorageApi.get_all_storage(1).then((storage) => { console.log(storage); })
+        StorageApi.get_all_storage(1).then((response) => {
+            response.map((data) => {
+                if (data.type === 1) setFolder(prev => [...prev, data])
+                else setFile(prev => [...prev, data])
+            })
+        })
     }
 
     const toggle = () => {
