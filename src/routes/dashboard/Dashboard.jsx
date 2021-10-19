@@ -4,66 +4,40 @@ import Action from '../../components/Action'
 import Hr from '../../components/Hr'
 import Modal from '../../components/Modal'
 import Storage from '../../components/Storage'
+import { toUpperCaseFirstLetter } from '../../utils/helper'
 import './dashboard.css'
 
 const Dashboard = () => {
-    // const folder = [
-    //     {
-    //         name: "Folder 1",
-    //     },
-    //     {
-    //         name: "Folder 2",
-    //     },
-    //     {
-    //         name: "Folder 3",
-    //     },
-    //     {
-    //         name: "Folder 4",
-    //     },
-    //     {
-    //         name: "Folder 5",
-    //     },
-    //     {
-    //         name: "Folder 6",
-    //     },
-    //     {
-    //         name: "Folder 7",
-    //     }
-    // ]
-
-    // const file = [
-    //     {
-    //         name: "File 1",
-    //     },
-    //     {
-    //         name: "File 2",
-    //     },
-    //     {
-    //         name: "File 3",
-    //     },
-    //     {
-    //         name: "File 4",
-    //     },
-    //     {
-    //         name: "File 5",
-    //     },
-    //     {
-    //         name: "File 6",
-    //     },
-    //     {
-    //         name: "File 7",
-    //     }
-    // ]
-
     const [showing, setShowing] = useState(false)
     const [folder, setFolder] = useState([])
     const [file, setFile] = useState([])
+    const [modalTitle, setModalTitle] = useState(null)
+    const [type, setType] = useState({})
+    const [name, setName] = useState('')
+    const [body, setBody] = useState()
+    const [parent, setParent] = useState(0)
 
     const onCloseHandler = () => {
         setShowing(false)
     }
 
-    const onOkHandler = () => { }
+    const onOkHandler = () => {
+        let data = {
+            owner: 1,
+            type: type.typeId,
+            parent: parent,
+            name: name,
+            body: body
+        }
+        const formData = new FormData();
+
+        for (var key in data) {
+            formData.append(key, data[key])
+        }
+
+        StorageApi.create_new_storage(data)
+
+    }
 
     const fetchStorage = () => {
         StorageApi.get_all_storage(1).then((response) => {
@@ -74,8 +48,15 @@ const Dashboard = () => {
         })
     }
 
-    const toggle = () => {
+    const toggle = (dataType) => {
+        setName("Untitled " + dataType.name)
+        setType(dataType)
+        setModalTitle(toUpperCaseFirstLetter(dataType.name))
         setShowing(true)
+    }
+
+    const onChangeFileHandle = (e) => {
+        setBody(e.target.files[0])
     }
 
     useEffect(() => {
@@ -92,11 +73,20 @@ const Dashboard = () => {
                 <Storage data={file} type="file" />
                 <Modal
                     visible={showing}
-                    title="New Folder"
+                    title={"New " + modalTitle}
                     onCancel={onCloseHandler}
                     onOk={onOkHandler}
                 >
-                    <input type="text" name="name" value="Untitled folder" />
+                    <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+
+                    {
+                        type.name === "file"
+                            ? <>
+                                <Hr>Choose File</Hr>
+                                <input type="file" name="body" onChange={onChangeFileHandle} />
+                            </>
+                            : null
+                    }
                 </Modal>
             </div>
         </div>

@@ -10,7 +10,18 @@ export const StorageApi = {
         }
         return api_call(
             "GET",
-            buildUrl(consts.GET_ALL_STORAGE, params),
+            buildUrl(consts.STORAGE, params),
         )
+    },
+    create_new_storage(data) {
+        return api_call(
+            "POST",
+            consts.STORAGE,
+            {
+                'content-type': 'multipart/form-data'
+            },
+            data
+        )
+
     }
 }

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { TypeApi } from '../api/type'
 import "./action.css"
 
 const Action = ({ onClickedHandle }) => {
-    const action = [
+    const data = [
         {
             title: "Create New Folder",
             type: "folder"
@@ -13,11 +14,30 @@ const Action = ({ onClickedHandle }) => {
         }
     ]
 
+    const [action, setAction] = useState([])
+
+    const fetchType = () => {
+        TypeApi.get_all_type().then(response => {
+
+            response.map((e, i) => {
+                let temp = data.find(element => element.type === e.name)
+                if (temp.title) {
+                    e.title = temp.title
+                }
+                setAction(prev => [...prev, e])
+            })
+        })
+    }
+
+    useEffect(() => {
+        fetchType()
+    }, [])
+
     return (
         <div className="action-list">
             {
                 action.map((app, idx) => (
-                    <button className="button" key={idx} onClick={() => onClickedHandle(app.type)}>{app.title}</button>
+                    <button className="button" key={idx} onClick={() => onClickedHandle(app)}>{app.title}</button>
                 ))
             }
         </div >

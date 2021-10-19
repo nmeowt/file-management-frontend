@@ -1,6 +1,6 @@
 import React from 'react'
 import './modal.css'
-const Modal = ({ visible, children, title = null, onCancel, onOk }) => {
+const Modal = ({ visible, children, title, onCancel, onOk }) => {
     const showHideClassName = visible ? "display-block" : "display-none";
     return (
         <>
