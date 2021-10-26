@@ -51,3 +51,8 @@
 .file-icon {
     width: 100%;
 }
+
+.selected {
+    background-color: #7f8fbb29;
+    color: #438bcb;
+}
