@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
+import Info from '../../components/Info'
 import Modal from '../../components/Modal'
 import Storage from '../../components/Storage'
 import { toUpperCaseFirstLetter } from '../../utils/helper'
@@ -16,6 +17,8 @@ const Dashboard = () => {
     const [name, setName] = useState('')
     const [body, setBody] = useState()
     const [parent, setParent] = useState(0)
+    const [visible, setVisible] = useState(false)
+    const [position, setPosition] = useState({ x: 0, y: 0 })
 
     const onCloseHandler = () => {
         setShowing(false)
@@ -55,6 +58,14 @@ const Dashboard = () => {
         setShowing(true)
     }
 
+    const infoHandler = (e) => {
+        setPosition({
+            x: e.clientX,
+            y: e.clientY
+        })
+        setVisible(true)
+    }
+
     const onChangeFileHandle = (e) => {
         setBody(e.target.files[0])
     }
@@ -66,11 +77,11 @@ const Dashboard = () => {
     return (
         <div className="dashboard-layout">
             <div className="dashboard-main container">
-                <Action onClickedHandle={toggle} />
+                <Action onClickedHandler={toggle} />
                 <Hr>folders</Hr>
-                <Storage data={folder} type="folder" />
+                <Storage data={folder} type="folder" onClickedHandler={infoHandler} />
                 <Hr>files</Hr>
-                <Storage data={file} type="file" />
+                <Storage data={file} type="file" onClickedHandler={infoHandler} />
                 <Modal
                     visible={showing}
                     title={"New " + modalTitle}
@@ -88,6 +99,7 @@ const Dashboard = () => {
                             : null
                     }
                 </Modal>
+                <Info visible={visible} position={position} />
             </div>
         </div>
     )

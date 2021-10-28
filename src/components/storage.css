@@ -8,11 +8,14 @@
     transition: all .3s;
     cursor: pointer;
     display: block;
+    position: relative;
 }
 
 .grid:hover {
     transform: translateY(-5px);
 }
+
+
 
 .folder-grid {
     width: 33.33%;
@@ -23,7 +26,7 @@
 }
 
 
-.folder-icon {
+.folder-grid .icon {
     width: 17px;
     display: inline-block;
     color: inherit;
@@ -48,11 +51,45 @@
     margin: 17px;
 }
 
-.file-icon {
+.file-grid .icon {
     width: 100%;
+}
+
+.info-icon {
+    width: 9%;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+.grid:hover .info-icon {
+    display: block;
 }
 
 .selected {
     background-color: #7f8fbb29;
     color: #438bcb;
+}
+
+.relative {
+    position: relative;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%);
+    z-index: 10;
+}
+
+.menu button {
+    border-radius: 0;
+    border: none;
+}
+
+.menu button:hover {
+    background-color: #ebebeb;
 }

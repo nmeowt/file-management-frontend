@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TypeApi } from '../api/type'
 import "./action.css"
 
-const Action = ({ onClickedHandle }) => {
+const Action = ({ onClickedHandler }) => {
     const data = [
         {
             title: "Create New Folder",
@@ -37,7 +37,7 @@ const Action = ({ onClickedHandle }) => {
         <div className="action-list">
             {
                 action.map((app, idx) => (
-                    <button className="button" key={idx} onClick={() => onClickedHandle(app)}>{app.title}</button>
+                    <button className="button" key={idx} onClick={() => onClickedHandler(app)}>{app.title}</button>
                 ))
             }
         </div >
