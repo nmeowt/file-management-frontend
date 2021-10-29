@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
@@ -19,6 +19,7 @@ const Dashboard = () => {
     const [parent, setParent] = useState(0)
     const [visible, setVisible] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
+    const ref = useRef(null);
 
     const onCloseHandler = () => {
         setShowing(false)
@@ -70,6 +71,28 @@ const Dashboard = () => {
         setBody(e.target.files[0])
     }
 
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            /**
+             * Alert if clicked on outside of element
+             */
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setVisible(false);
+                }
+            }
+
+            // Bind the event listener
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                // Unbind the event listener on clean up
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
+    useOutsideAlerter(ref)
+
     useEffect(() => {
         fetchStorage()
     }, [])
@@ -99,7 +122,15 @@ const Dashboard = () => {
                             : null
                     }
                 </Modal>
-                <Info visible={visible} position={position} />
+
+                {
+                    visible
+                        ? <div ref={ref}>
+                            <Info position={position} />
+                        </div>
+                        : null
+                }
+
             </div>
         </div>
     )
