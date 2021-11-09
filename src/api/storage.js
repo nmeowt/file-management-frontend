@@ -13,15 +13,25 @@ export const StorageApi = {
             buildUrl(consts.STORAGE, params),
         )
     },
-    create_new_storage(data) {
+    create_new_folder(data) {
         return api_call(
             "POST",
-            consts.STORAGE,
+            consts.FOLDER,
+            {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            data
+        )
+
+    },
+    create_new_file(data) {
+        return api_call(
+            "POST",
+            consts.FILE,
             {
                 'content-type': 'multipart/form-data'
             },
             data
         )
-
     }
 }

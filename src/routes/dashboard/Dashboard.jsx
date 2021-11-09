@@ -5,7 +5,7 @@ import Hr from '../../components/Hr'
 import Info from '../../components/Info'
 import Modal from '../../components/Modal'
 import Storage from '../../components/Storage'
-import { toUpperCaseFirstLetter } from '../../utils/helper'
+import { convertFormBody, toUpperCaseFirstLetter } from '../../utils/helper'
 import './dashboard.css'
 
 const Dashboard = () => {
@@ -15,7 +15,7 @@ const Dashboard = () => {
     const [modalTitle, setModalTitle] = useState(null)
     const [type, setType] = useState({})
     const [name, setName] = useState('')
-    const [body, setBody] = useState()
+    const [body, setBody] = useState(null)
     const [parent, setParent] = useState(0)
     const [visible, setVisible] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -27,20 +27,30 @@ const Dashboard = () => {
 
     const onOkHandler = () => {
         let data = {
-            owner: 1,
-            type: type.typeId,
             parent: parent,
-            name: name,
-            body: body
-        }
-        const formData = new FormData();
-
-        for (var key in data) {
-            formData.append(key, data[key])
+            name: name
         }
 
-        StorageApi.create_new_storage(data)
+        if (type.name === 'file') {
+            data = {
+                ...data,
+                body: body,
+            }
+            const formData = new FormData()
 
+            for (var key in data) {
+                formData.append(key, data[key])
+            }
+
+            StorageApi.create_new_file(convertFormBody(formData)).then((response) => {
+                console.log(response)
+            })
+        } else {
+            StorageApi.create_new_folder(convertFormBody(data)).then((response) => {
+                setFolder([])
+                fetchStorage()
+            })
+        }
     }
 
     const fetchStorage = () => {
