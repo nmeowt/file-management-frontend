@@ -5,6 +5,7 @@ export default {
     API_LOGIN_USER: API_BASEPATH + "login",
     STORAGE: API_BASEPATH + "storage",
     FILE: API_BASEPATH + "file",
+    UPLOAD_FILE: API_BASEPATH + "upload-file",
     FOLDER: API_BASEPATH + "folder",
     GET_ALL_TYPE: API_BASEPATH + "type"
 };

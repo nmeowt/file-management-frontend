@@ -1,20 +1,30 @@
 import consts from "../consts"
-import { api_call, buildUrl } from "../utils/helper"
+import { api, buildUrl } from "../utils/helper"
 
 export const StorageApi = {
-    get_all_storage(owner, offset = 0, limit = 100) {
+    get_all_storage(parent, offset = 0, limit = 100) {
         const params = {
-            owner,
+            parent,
             offset,
             limit
         }
-        return api_call(
+        return api(
             "GET",
             buildUrl(consts.STORAGE, params),
         )
     },
+    get_all_folder(offset = 0, limit = 100) {
+        const params = {
+            offset,
+            limit
+        }
+        return api(
+            "GET",
+            buildUrl(consts.FOLDER, params),
+        )
+    },
     create_new_folder(data) {
-        return api_call(
+        return api(
             "POST",
             consts.FOLDER,
             {
@@ -22,15 +32,32 @@ export const StorageApi = {
             },
             data
         )
-
+    },
+    get_all_file(offset = 0, limit = 100) {
+        const params = {
+            offset,
+            limit
+        }
+        return api(
+            "GET",
+            buildUrl(consts.FILE, params),
+        )
     },
     create_new_file(data) {
-        return api_call(
+        return api(
             "POST",
             consts.FILE,
             {
-                'content-type': 'multipart/form-data'
+                'content-type': 'application/x-www-form-urlencoded'
             },
+            data
+        )
+    },
+    upload_file(data) {
+        return api(
+            "POST",
+            consts.UPLOAD_FILE,
+            {},
             data
         )
     }

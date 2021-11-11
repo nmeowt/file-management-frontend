@@ -1,9 +1,9 @@
 import consts from "../consts";
-import { api_call } from "../utils/helper";
+import { api } from "../utils/helper";
 
 export const Auth = {
     login(data, setError, setIsLogined) {
-        return api_call(
+        return api(
             "POST",
             consts.API_LOGIN_USER,
             {

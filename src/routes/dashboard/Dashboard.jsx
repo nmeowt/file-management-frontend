@@ -32,33 +32,51 @@ const Dashboard = () => {
         }
 
         if (type.name === 'file') {
-            data = {
-                ...data,
-                body: body,
-            }
-            const formData = new FormData()
+            fetchUploadFile().then(response => {
+                data = {
+                    ...data,
+                    body: response.file_name,
+                    file_size: response.file_size
+                }
 
-            for (var key in data) {
-                formData.append(key, data[key])
-            }
-
-            StorageApi.create_new_file(convertFormBody(formData)).then((response) => {
-                console.log(response)
+                StorageApi.create_new_file(convertFormBody(data)).then(() => {
+                    fetchFile()
+                })
             })
+
         } else {
-            StorageApi.create_new_folder(convertFormBody(data)).then((response) => {
-                setFolder([])
-                fetchStorage()
+            StorageApi.create_new_folder(convertFormBody(data)).then(() => {
+                fetchFolder()
             })
         }
+        setShowing(false)
+    }
+
+    const fetchUploadFile = () => {
+        const formData = new FormData()
+        formData.append("file", body)
+
+        return StorageApi.upload_file(formData)
     }
 
     const fetchStorage = () => {
-        StorageApi.get_all_storage(1).then((response) => {
+        StorageApi.get_all_storage(parent).then((response) => {
             response.map((data) => {
                 if (data.type === 1) setFolder(prev => [...prev, data])
                 else setFile(prev => [...prev, data])
             })
+        })
+    }
+
+    const fetchFile = () => {
+        StorageApi.get_all_file().then((response) => {
+            setFile(response)
+        })
+    }
+
+    const fetchFolder = () => {
+        StorageApi.get_all_folder().then((response) => {
+            setFolder(response)
         })
     }
 
@@ -103,6 +121,13 @@ const Dashboard = () => {
 
     useOutsideAlerter(ref)
 
+    const onClickedStorageHandler = (id) => {
+        setParent(id)
+        setFile([])
+        setFolder([])
+        fetchStorage()
+    }
+
     useEffect(() => {
         fetchStorage()
     }, [])
@@ -112,9 +137,19 @@ const Dashboard = () => {
             <div className="dashboard-main container">
                 <Action onClickedHandler={toggle} />
                 <Hr>folders</Hr>
-                <Storage data={folder} type="folder" onClickedHandler={infoHandler} />
+                <Storage
+                    data={folder}
+                    type="folder"
+                    onClickedHandler={infoHandler}
+                    onClickedStorageHandler={onClickedStorageHandler}
+                />
                 <Hr>files</Hr>
-                <Storage data={file} type="file" onClickedHandler={infoHandler} />
+                <Storage
+                    data={file}
+                    type="file"
+                    onClickedHandler={infoHandler}
+                    onClickedStorageHandler={onClickedStorageHandler}
+                />
                 <Modal
                     visible={showing}
                     title={"New " + modalTitle}

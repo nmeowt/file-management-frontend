@@ -4,14 +4,14 @@ import FolderIcon from '../img/folder.png';
 import InfoIcon from '../img/three-dots.png';
 import Wrapper from './Wrapper';
 
-const Storage = ({ data, type, onClickedHandler }) => {
-
+const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
     return (
         <Wrapper>
             {
                 data.map((app, idx) => {
                     return (
                         <div
+                            onClick={() => { onClickedStorageHandler(app.id) }}
                             className={
                                 (
                                     (type == "folder")
@@ -23,7 +23,6 @@ const Storage = ({ data, type, onClickedHandler }) => {
                             key={idx}
                         >
                             <img src={InfoIcon} className="info-icon" onClick={onClickedHandler} />
-
                             <img src={(type == "folder") ? FolderIcon : "http://localhost:8000/" + app.body} alt="icon" className="icon" />
                             {app.name}
                         </div>
