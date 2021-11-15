@@ -9,6 +9,7 @@ const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
         <Wrapper>
             {
                 data.map((app, idx) => {
+                    const url = "http://localhost:8000/" + app.body
                     return (
                         <div
                             onClick={() => { onClickedStorageHandler(app.id) }}
@@ -22,8 +23,8 @@ const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
                             }
                             key={idx}
                         >
-                            <img src={InfoIcon} className="info-icon" onClick={onClickedHandler} />
-                            <img src={(type == "folder") ? FolderIcon : "http://localhost:8000/" + app.body} alt="icon" className="icon" />
+                            <img src={InfoIcon} className="info-icon" onClick={(e) => onClickedHandler(e, url)} />
+                            <img src={(type == "folder") ? FolderIcon : url} alt="icon" className="icon" />
                             {app.name}
                         </div>
                     )

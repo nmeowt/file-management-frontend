@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { StorageApi } from '../api/storage'
+import { api } from '../utils/helper'
 
 
-const Info = ({ position }) => {
-    const action = [
-        { name: 'View' },
-        { name: 'Download' },
-        { name: 'Remove' },
-    ]
+const Info = ({ position, url }) => {
+    const onClickedDownloadHandler = () => {
+        api(
+            "GET",
+            url
+        ).then((response) => {
+            console.log(response)
+        })
+    }
 
     return (
         <div className="menu" style={{
@@ -14,9 +19,7 @@ const Info = ({ position }) => {
             left: position.x + 'px'
         }}
         >
-            <button> Menu item 1 </button>
-            <button> Menu item 2 </button>
-            <button> Menu item 3 </button>
+            <button onClick={onClickedDownloadHandler}>Download</button>
         </div>
     )
 }

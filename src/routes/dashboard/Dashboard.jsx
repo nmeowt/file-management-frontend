@@ -19,6 +19,7 @@ const Dashboard = () => {
     const [parent, setParent] = useState(0)
     const [visible, setVisible] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [url, setUrl] = useState('')
     const ref = useRef(null);
 
     const onCloseHandler = () => {
@@ -87,7 +88,8 @@ const Dashboard = () => {
         setShowing(true)
     }
 
-    const infoHandler = (e) => {
+    const infoHandler = (e, url) => {
+        setUrl(url)
         setPosition({
             x: e.clientX,
             y: e.clientY
@@ -122,10 +124,10 @@ const Dashboard = () => {
     useOutsideAlerter(ref)
 
     const onClickedStorageHandler = (id) => {
-        setParent(id)
-        setFile([])
-        setFolder([])
-        fetchStorage()
+        // setParent(id)
+        // setFile([])
+        // setFolder([])
+        // fetchStorage()
     }
 
     useEffect(() => {
@@ -171,7 +173,7 @@ const Dashboard = () => {
                 {
                     visible
                         ? <div ref={ref}>
-                            <Info position={position} />
+                            <Info position={position} url={url} />
                         </div>
                         : null
                 }
