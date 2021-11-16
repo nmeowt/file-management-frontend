@@ -4,22 +4,17 @@ import { api } from '../utils/helper'
 
 
 const Info = ({ position, url }) => {
-    const onClickedDownloadHandler = () => {
-        api(
-            "GET",
-            url
-        ).then((response) => {
-            console.log(response)
-        })
-    }
-
     return (
         <div className="menu" style={{
             top: position.y + 'px',
             left: position.x + 'px'
         }}
         >
-            <button onClick={onClickedDownloadHandler}>Download</button>
+            <a href={url} target="_blank" rel="noopener noreferrer" download>
+                <button>
+                    Download
+                </button>
+            </a>
         </div>
     )
 }
