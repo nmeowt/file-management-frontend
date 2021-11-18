@@ -138,20 +138,21 @@ const Dashboard = () => {
         <div className="dashboard-layout">
             <div className="dashboard-main container">
                 <Action onClickedHandler={toggle} />
-                <Hr>folders</Hr>
-                <Storage
-                    data={folder}
-                    type="folder"
-                    onClickedHandler={infoHandler}
-                    onClickedStorageHandler={onClickedStorageHandler}
-                />
-                <Hr>files</Hr>
-                <Storage
-                    data={file}
-                    type="file"
-                    onClickedHandler={infoHandler}
-                    onClickedStorageHandler={onClickedStorageHandler}
-                />
+                <div className="dashboard-storage">
+                    <Storage
+                        data={folder}
+                        type="folder"
+                        onClickedHandler={infoHandler}
+                        onClickedStorageHandler={onClickedStorageHandler}
+                    />
+                    <Hr>files</Hr>
+                    <Storage
+                        data={file}
+                        type="file"
+                        onClickedHandler={infoHandler}
+                        onClickedStorageHandler={onClickedStorageHandler}
+                    />
+                </div>
                 <Modal
                     visible={showing}
                     title={"New " + modalTitle}

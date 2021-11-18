@@ -22,24 +22,25 @@ const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
                     }
 
                     return (
-                        <>
-                            <div
-                                onClick={() => { onClickedStorageHandler(app.id) }}
-                                className={
-                                    (
-                                        (type == "folder")
-                                            ? "folder-grid "
-                                            : "file-grid "
-                                    )
-                                    + "grid"
-                                }
-                                key={idx}
-                            >
-                                <img src={InfoIcon} className="info-icon" onClick={(e) => onClickedHandler(e, url)} />
+
+                        <div
+                            onClick={() => { onClickedStorageHandler(app.id) }}
+                            className={
+                                (
+                                    (type == "folder")
+                                        ? "folder-grid "
+                                        : "file-grid "
+                                )
+                                + "grid"
+                            }
+                            key={idx}
+                        >
+                            <img src={InfoIcon} className="info-icon" onClick={(e) => onClickedHandler(e, url)} />
+                            <div className="info-image">
                                 <img src={preview} alt="icon" className="icon" />
-                                {app.name}
                             </div>
-                        </>
+                            <div className="info-title">{app.name}</div>
+                        </div>
                     )
                 })
             }

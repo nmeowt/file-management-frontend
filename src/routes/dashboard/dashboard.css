@@ -16,6 +16,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     position: relative;
+    overflow: hidden;
 }
 
 .dashboard__wrap {
@@ -42,4 +43,10 @@
 
 .dashboard-main__inner__left {
     flex: 1;
+}
+
+.dashboard-storage {
+    overflow: scroll;
+    height: calc(100vh - 80px);
+    overflow-x: hidden;
 }

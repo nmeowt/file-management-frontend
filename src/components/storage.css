@@ -19,6 +19,7 @@
 
 .folder-grid {
     width: 33.33%;
+    display: flex;
     flex: 0 0 25%;
     max-width: 22%;
     margin-top: 0;
@@ -43,7 +44,7 @@
 
 .file-grid {
     height: 220px;
-    width: 200px;
+    width: 190px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -83,9 +84,6 @@
     position: absolute;
     box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%);
     z-index: 10;
-    position: absolute;
-    top: 15px;
-    right: -10vh;
 }
 
 .menu button {
@@ -95,4 +93,21 @@
 
 .menu button:hover {
     background-color: #ebebeb;
+}
+
+.file-grid .info-image {
+    width: 150px;
+    height: 150px;
+    width: 150 px;
+    height: 150 px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-grid .info-title {
+    height: calc(100% - 150px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

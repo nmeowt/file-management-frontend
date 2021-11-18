@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const api = async function (
     method,
@@ -88,36 +88,8 @@ export const convertFormBody = (data) => {
     return formBody
 }
 
-
-export function httpClient(path, options) {
-    let url;
-    let extraHeaders = {};
-
-    // if (/^https?:\/\//.test(path)) {
-    //     url = new URL(path);
-    // } else {
-    //     url = new URL(`${SERVER_URL}${path}`);
-    // }
-
-    // if (options.qs) {
-    //     Object.keys(options.qs)
-    //         .filter((key) => {
-    //             return !isNullOrUndefined(options.qs[key]) && options.qs[key] !== '';
-    //         })
-    //         .forEach(key => url.searchParams.append(key, options.qs[key]));
-    // }
-
-    // options = Object.assign({
-    //     mode: 'cors',
-    //     credentials: 'include',
-    // }, options);
-
-    // options.headers = {
-    //     ...options.headers,
-    //     ...extraHeaders,
-    // };
-
-    // return fetch(url, options)
-    //     .then(responseToJson)
-    //     .then(validateResponse);
-}
+export const Separator = ({ children, ...props }) => (
+    <span style={{ color: '#e4798d' }} {...props}>
+        {children}
+    </span>
+)
