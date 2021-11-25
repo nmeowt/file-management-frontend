@@ -4,6 +4,7 @@ import FolderIcon from '../img/folder.png';
 import FileIcon from '../img/file.png';
 import InfoIcon from '../img/three-dots.png';
 import Wrapper from './Wrapper';
+import { Link } from 'react-router-dom';
 
 const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
     return (
@@ -22,12 +23,11 @@ const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
                     }
 
                     return (
-
-                        <div
-                            onClick={() => { onClickedStorageHandler(app.id) }}
+                        <Link
+                            to={"/folder/" + app.id}
                             className={
                                 (
-                                    (type == "folder")
+                                    (type === "folder")
                                         ? "folder-grid "
                                         : "file-grid "
                                 )
@@ -40,7 +40,7 @@ const Storage = ({ data, type, onClickedHandler, onClickedStorageHandler }) => {
                                 <img src={preview} alt="icon" className="icon" />
                             </div>
                             <div className="info-title">{app.name}</div>
-                        </div>
+                        </Link>
                     )
                 })
             }

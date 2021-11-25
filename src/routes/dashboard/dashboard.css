@@ -3,19 +3,12 @@
     padding: 0;
 }
 
-.container {
-    max-width: 920px;
-    margin: auto;
-}
-
 .dashboard-layout {
-    height: 100vh;
     display: -ms-flex;
     display: -webkit-flex;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    position: relative;
     overflow: hidden;
 }
 
@@ -47,6 +40,6 @@
 
 .dashboard-storage {
     overflow: scroll;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 100px);
     overflow-x: hidden;
 }

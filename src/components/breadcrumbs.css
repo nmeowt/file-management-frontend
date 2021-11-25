@@ -1,0 +1,18 @@
+ol {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-separator {
+    display: flex;
+    align-items: center;
+    color: #333;
+    margin: auto 6px;
+    user-select: none;
+}
+
+.breadcrumb-collapser {
+    display: flex;
+    align-items: center;
+}

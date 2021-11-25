@@ -1,6 +1,7 @@
 import React from "react"
 import BreadCrumbCollapser from "../utils/breadCrumbCollapser"
 import useBreadCrumb from "../utils/useBreadCrumb"
+import "./breadcrumbs.css"
 
 const BreadCrumbItem = ({ children, ...props }) => (
     <li className='breadcrumb-item' {...props}>
@@ -15,17 +16,15 @@ const BreadCrumbSeparator = ({ children, ...props }) => (
 )
 
 const toBreadCrumbItem = (child, index) => (
-    <BreadCrumbItem key={`breadcrumb_item${index}`}>{child}</BreadCrumbItem>
+    <BreadCrumbItem key={`breadcrumb_item${index}`}> {child}</BreadCrumbItem >
 )
 
-const withSeparator = (lastIndex, separator) => (acc, child, index) => {
+const withSeparator = (lastIndex) => (acc, child, index) => {
     const notLast = index < lastIndex
     if (notLast) {
         acc.push([
             child,
-            <BreadCrumbSeparator key={`breadcrumb_sep${index}`}>
-                /
-            </BreadCrumbSeparator>,
+            <BreadCrumbSeparator key={`breadcrumb_sep${index}`} />,
         ])
     } else {
         acc.push(child)

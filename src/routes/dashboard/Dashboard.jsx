@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useNavigate, generatePath, useParams } from "react-router-dom";
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
@@ -21,6 +22,8 @@ const Dashboard = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [url, setUrl] = useState('')
     const ref = useRef(null);
+    const navigate = useNavigate();
+    const { id } = useParams();
 
     const onCloseHandler = () => {
         setShowing(false)
@@ -60,15 +63,6 @@ const Dashboard = () => {
         return StorageApi.upload_file(formData)
     }
 
-    const fetchStorage = () => {
-        StorageApi.get_all_storage(parent).then((response) => {
-            response.map((data) => {
-                if (data.type === 1) setFolder(prev => [...prev, data])
-                else setFile(prev => [...prev, data])
-            })
-        })
-    }
-
     const fetchFile = () => {
         StorageApi.get_all_file().then((response) => {
             setFile(response)
@@ -103,19 +97,13 @@ const Dashboard = () => {
 
     function useOutsideAlerter(ref) {
         useEffect(() => {
-            /**
-             * Alert if clicked on outside of element
-             */
             function handleClickOutside(event) {
                 if (ref.current && !ref.current.contains(event.target)) {
                     setVisible(false);
                 }
             }
-
-            // Bind the event listener
             document.addEventListener("mousedown", handleClickOutside);
             return () => {
-                // Unbind the event listener on clean up
                 document.removeEventListener("mousedown", handleClickOutside);
             };
         }, [ref]);
@@ -123,36 +111,32 @@ const Dashboard = () => {
 
     useOutsideAlerter(ref)
 
-    const onClickedStorageHandler = (id) => {
-        // setParent(id)
-        // setFile([])
-        // setFolder([])
-        // fetchStorage()
+    // const onClickedStorageHandler = (data) => {
+
+    //     if (data.type === 1) {
+    //         setFile([])
+    //         setFolder([])
+    //         fetchStorage(data.id)
+    //     }
+    // }
+
+    const fetchStorage = (id) => {
+        StorageApi.get_all_storage(id).then((response) => {
+            response.map((data) => {
+                if (data.type === 1) setFolder(prev => [...prev, data])
+                else setFile(prev => [...prev, data])
+            })
+        })
     }
 
     useEffect(() => {
-        fetchStorage()
+        fetchStorage(id ? id : parent)
     }, [])
 
     return (
         <div className="dashboard-layout">
             <div className="dashboard-main container">
                 <Action onClickedHandler={toggle} />
-                <div className="dashboard-storage">
-                    <Storage
-                        data={folder}
-                        type="folder"
-                        onClickedHandler={infoHandler}
-                        onClickedStorageHandler={onClickedStorageHandler}
-                    />
-                    <Hr>files</Hr>
-                    <Storage
-                        data={file}
-                        type="file"
-                        onClickedHandler={infoHandler}
-                        onClickedStorageHandler={onClickedStorageHandler}
-                    />
-                </div>
                 <Modal
                     visible={showing}
                     title={"New " + modalTitle}
@@ -170,7 +154,21 @@ const Dashboard = () => {
                             : null
                     }
                 </Modal>
-
+            </div>
+            <div className="dashboard-storage">
+                <Storage
+                    data={folder}
+                    type="folder"
+                    onClickedHandler={infoHandler}
+                // onClickedStorageHandler={onClickedStorageHandler}
+                />
+                <Hr>files</Hr>
+                <Storage
+                    data={file}
+                    type="file"
+                    onClickedHandler={infoHandler}
+                // onClickedStorageHandler={onClickedStorageHandler}
+                />
                 {
                     visible
                         ? <div ref={ref}>
@@ -178,7 +176,6 @@ const Dashboard = () => {
                         </div>
                         : null
                 }
-
             </div>
         </div>
     )
