@@ -18,13 +18,13 @@ const Action = ({ onClickedHandler }) => {
 
     const fetchType = () => {
         TypeApi.get_all_type().then(response => {
-
             response.map((e, i) => {
                 let temp = data.find(element => element.type === e.name)
                 if (temp.title) {
                     e.title = temp.title
                 }
                 setAction(prev => [...prev, e])
+                return;
             })
         })
     }

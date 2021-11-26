@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useNavigate, generatePath, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useParams } from "react-router-dom";
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
-import Info from '../../components/Info'
 import Modal from '../../components/Modal'
-import Storage from '../../components/Storage'
 import { convertFormBody, toUpperCaseFirstLetter } from '../../utils/helper'
 import './dashboard.css'
+import Storage from './details/Storage';
 
 const Dashboard = () => {
     const [showing, setShowing] = useState(false)
@@ -18,12 +17,9 @@ const Dashboard = () => {
     const [name, setName] = useState('')
     const [body, setBody] = useState(null)
     const [parent, setParent] = useState(0)
-    const [visible, setVisible] = useState(false)
-    const [position, setPosition] = useState({ x: 0, y: 0 })
-    const [url, setUrl] = useState('')
-    const ref = useRef(null);
-    const navigate = useNavigate();
+
     const { id } = useParams();
+
 
     const onCloseHandler = () => {
         setShowing(false)
@@ -82,43 +78,9 @@ const Dashboard = () => {
         setShowing(true)
     }
 
-    const infoHandler = (e, url) => {
-        setUrl(url)
-        setPosition({
-            x: e.clientX,
-            y: e.clientY
-        })
-        setVisible(true)
-    }
-
     const onChangeFileHandle = (e) => {
         setBody(e.target.files[0])
     }
-
-    function useOutsideAlerter(ref) {
-        useEffect(() => {
-            function handleClickOutside(event) {
-                if (ref.current && !ref.current.contains(event.target)) {
-                    setVisible(false);
-                }
-            }
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside);
-            };
-        }, [ref]);
-    }
-
-    useOutsideAlerter(ref)
-
-    // const onClickedStorageHandler = (data) => {
-
-    //     if (data.type === 1) {
-    //         setFile([])
-    //         setFolder([])
-    //         fetchStorage(data.id)
-    //     }
-    // }
 
     const fetchStorage = (id) => {
         StorageApi.get_all_storage(id).then((response) => {
@@ -130,7 +92,7 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        fetchStorage(id ? id : parent)
+        fetchStorage(parent)
     }, [])
 
     return (
@@ -156,26 +118,7 @@ const Dashboard = () => {
                 </Modal>
             </div>
             <div className="dashboard-storage">
-                <Storage
-                    data={folder}
-                    type="folder"
-                    onClickedHandler={infoHandler}
-                // onClickedStorageHandler={onClickedStorageHandler}
-                />
-                <Hr>files</Hr>
-                <Storage
-                    data={file}
-                    type="file"
-                    onClickedHandler={infoHandler}
-                // onClickedStorageHandler={onClickedStorageHandler}
-                />
-                {
-                    visible
-                        ? <div ref={ref}>
-                            <Info position={position} url={url} />
-                        </div>
-                        : null
-                }
+                <Storage file={file} folder={folder} />
             </div>
         </div>
     )

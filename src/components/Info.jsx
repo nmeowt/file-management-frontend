@@ -1,7 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { StorageApi } from '../api/storage'
-import { api } from '../utils/helper'
-
+import React from 'react'
 
 const Info = ({ position, url }) => {
     return (
