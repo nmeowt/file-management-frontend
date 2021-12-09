@@ -8,5 +8,6 @@ export default {
     UPLOAD_FILE: API_BASEPATH + "upload-file",
     FOLDER: API_BASEPATH + "folder",
     GET_ALL_TYPE: API_BASEPATH + "type",
-    DOWNLOAD: API_BASEPATH + "download"
+    DOWNLOAD: API_BASEPATH + "download",
+    DOWNLOAD_FOLDER: API_BASEPATH + "download_folder"
 };

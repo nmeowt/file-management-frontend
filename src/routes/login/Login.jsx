@@ -10,6 +10,7 @@ const Login = () => {
         const { name, value } = e.target
         setUser((prev) => ({ ...prev, [name]: value }))
     }
+
     const handleSubmit = () => {
         handleLogin()
     }

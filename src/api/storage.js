@@ -2,19 +2,18 @@ import consts from "../consts"
 import { api, buildUrl } from "../utils/helper"
 
 export const StorageApi = {
-    get_all_storage(parent, offset = 0, limit = 100) {
+    get_storage_by_id(id) {
         const params = {
-            parent,
-            offset,
-            limit
+            id
         }
         return api(
             "GET",
             buildUrl(consts.STORAGE, params),
         )
     },
-    get_all_folder(offset = 0, limit = 100) {
+    get_all_folder(parent, offset = 0, limit = 100) {
         const params = {
+            parent,
             offset,
             limit
         }
@@ -33,8 +32,9 @@ export const StorageApi = {
             data
         )
     },
-    get_all_file(offset = 0, limit = 100) {
+    get_all_file(parent, offset = 0, limit = 100) {
         const params = {
+            parent,
             offset,
             limit
         }
@@ -59,6 +59,15 @@ export const StorageApi = {
             consts.UPLOAD_FILE,
             {},
             data
+        )
+    },
+    download_folder(id) {
+        const params = {
+            id
+        }
+        return api(
+            "GET",
+            buildUrl(consts.DOWNLOAD_FOLDER, params),
         )
     }
 }

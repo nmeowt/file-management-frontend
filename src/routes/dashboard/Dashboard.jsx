@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
 import Hr from '../../components/Hr'
@@ -16,9 +16,9 @@ const Dashboard = () => {
     const [type, setType] = useState({})
     const [name, setName] = useState('')
     const [body, setBody] = useState(null)
-    const [parent, setParent] = useState(0)
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
 
     const onCloseHandler = () => {
@@ -26,47 +26,49 @@ const Dashboard = () => {
     }
 
     const onOkHandler = () => {
+        let parent = (id) ? id : 0
         let data = {
             parent: parent,
             name: name
         }
-
         if (type.name === 'file') {
-            fetchUploadFile().then(response => {
+            fetchUploadFile(parent).then(response => {
                 data = {
                     ...data,
                     body: response.file_name,
-                    file_size: response.file_size
+                    file_size: response.file_size,
+                    location: response.location
                 }
 
                 StorageApi.create_new_file(convertFormBody(data)).then(() => {
-                    fetchFile()
+                    fetchFile(parent)
                 })
             })
 
         } else {
             StorageApi.create_new_folder(convertFormBody(data)).then(() => {
-                fetchFolder()
+                fetchFolder(parent)
             })
         }
         setShowing(false)
     }
 
-    const fetchUploadFile = () => {
+    const fetchUploadFile = (parent) => {
         const formData = new FormData()
         formData.append("file", body)
+        formData.append("parent", parent)
 
         return StorageApi.upload_file(formData)
     }
 
-    const fetchFile = () => {
-        StorageApi.get_all_file().then((response) => {
+    const fetchFile = (id) => {
+        StorageApi.get_all_file(id).then((response) => {
             setFile(response)
         })
     }
 
-    const fetchFolder = () => {
-        StorageApi.get_all_folder().then((response) => {
+    const fetchFolder = (id) => {
+        StorageApi.get_all_folder(id).then((response) => {
             setFolder(response)
         })
     }
@@ -79,24 +81,35 @@ const Dashboard = () => {
     }
 
     const onChangeFileHandle = (e) => {
-        setBody(e.target.files[0])
+        const file = e.target.files[0]
+        setBody(file)
+        setName(file.name)
     }
 
     const fetchStorage = (id) => {
-        StorageApi.get_all_storage(id).then((response) => {
-            response.map((data) => {
-                if (data.type === 1) setFolder(prev => [...prev, data])
-                else setFile(prev => [...prev, data])
-            })
-        })
+        fetchFolder(id)
+        fetchFile(id)
+    }
+
+    const onClickedChangeFolder = (data) => {
+        folder([])
+        file([])
+        fetchStorage(id)
     }
 
     useEffect(() => {
-        fetchStorage(parent)
+        fetchStorage(id ? id : 0)
     }, [])
 
     return (
         <div className="dashboard-layout">
+            <div>
+                {
+                    (id) ? <button className="button" href="#" onClick={() => {
+                        navigate(-1)
+                    }}> Back </button> : null
+                }
+            </div>
             <div className="dashboard-main container">
                 <Action onClickedHandler={toggle} />
                 <Modal
@@ -105,20 +118,15 @@ const Dashboard = () => {
                     onCancel={onCloseHandler}
                     onOk={onOkHandler}
                 >
-                    <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
-
                     {
                         type.name === "file"
-                            ? <>
-                                <Hr>Choose File</Hr>
-                                <input type="file" name="body" onChange={onChangeFileHandle} />
-                            </>
-                            : null
+                            ? <input type="file" name="body" onChange={onChangeFileHandle} />
+                            : <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
                     }
                 </Modal>
             </div>
             <div className="dashboard-storage">
-                <Storage file={file} folder={folder} />
+                <Storage file={file} folder={folder} onClickedChangeFolder={onClickedChangeFolder} />
             </div>
         </div>
     )
