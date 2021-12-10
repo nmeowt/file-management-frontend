@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { StorageApi } from '../../api/storage'
 import Action from '../../components/Action'
-import Hr from '../../components/Hr'
 import Modal from '../../components/Modal'
+import Navbar from '../../components/Navbar';
 import { convertFormBody, toUpperCaseFirstLetter } from '../../utils/helper'
 import './dashboard.css'
 import Storage from './details/Storage';
@@ -18,7 +18,6 @@ const Dashboard = () => {
     const [body, setBody] = useState(null)
 
     const { id } = useParams();
-    const navigate = useNavigate();
 
 
     const onCloseHandler = () => {
@@ -104,11 +103,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard-layout">
             <div>
-                {
-                    (id) ? <button className="button" href="#" onClick={() => {
-                        navigate(-1)
-                    }}> Back </button> : null
-                }
+                <Navbar id={id} />
             </div>
             <div className="dashboard-main container">
                 <Action onClickedHandler={toggle} />
