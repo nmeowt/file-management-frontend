@@ -1,9 +1,16 @@
 import consts from "../consts";
-import { api } from "../utils/helper";
+import { api, getCookie } from "../utils/helper";
 import Cookies from 'universal-cookie';
 
 const hourToExpire = 24
 export const Auth = {
+    isAuthen() {
+        let token = getCookie(consts.USER_INFO_STORAGE_KEY);
+        if (token === null) {
+            return false;
+        }
+        return true;
+    },
     login(data, setError, setIsLogined) {
         return api(
             "POST",
@@ -19,8 +26,8 @@ export const Auth = {
             } else {
                 const cookies = new Cookies();
                 let d = new Date();
-                d.setTime(d.getTime() + (hourToExpire * 60 * 60* 1000));
-                cookies.set("token", response.token, {path: "/", expires: d});
+                d.setTime(d.getTime() + (hourToExpire * 60 * 60 * 1000));
+                cookies.set(consts.USER_INFO_STORAGE_KEY, response.token, { path: "/", expires: d });
                 setIsLogined(true);
                 setError([]);
             }

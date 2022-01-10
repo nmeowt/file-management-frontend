@@ -26,7 +26,7 @@ const UserProvider = (props) => {
                 error,
                 setError,
                 isLogined,
-                setIsLogined
+                setIsLogined,
             }}
         >
             {props.children}
