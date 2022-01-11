@@ -1,10 +1,12 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import consts from '../consts';
+import { getCookie } from '../utils/helper';
 import Logout from './Logout';
 
 const Navbar = ({ id }) => {
-
     const navigate = useNavigate();
+    const info = getCookie(consts.USER_INFO);
 
     return (
         <div style={{
@@ -21,7 +23,7 @@ const Navbar = ({ id }) => {
             }
 
             <div>
-                @somebody <Logout />
+                @{info} <Logout />
             </div>
         </div>
     )

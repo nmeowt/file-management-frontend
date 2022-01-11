@@ -4,7 +4,6 @@ import File from '../../../components/File'
 import Hr from '../../../components/Hr'
 import Info from '../../../components/Info'
 import Wrapper from '../../../components/Wrapper'
-import { StorageApi } from '../../../api/storage'
 
 const Storage = ({ file, folder, onClickedChangeFolder }) => {
     const [visible, setVisible] = useState(false)

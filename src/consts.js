@@ -1,7 +1,8 @@
 const API_BASEPATH = "http://localhost:8081/"
 
 export default {
-    USER_INFO_STORAGE_KEY: "USERINFO_FILE_MANAGEMENT",
+    STORAGE_KEY: "TOKEN",
+    USER_INFO: "USERNAME",
     API_LOGIN_USER: API_BASEPATH + "login",
     STORAGE: API_BASEPATH + "storage",
     FILE: API_BASEPATH + "file",

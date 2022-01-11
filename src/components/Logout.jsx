@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import UserContext from '../context/UserContext'
 
 const Logout = () => {
-    const onClickedHandler = (e) => {
-
-    }
+    const { handleLogout } = useContext(UserContext)
 
     return (
         <>
@@ -12,7 +11,7 @@ const Logout = () => {
                     color: 'rgb(102 102 102 / 50%)',
                     fontWeight: 0
                 }}
-                onClick={onClickedHandler}
+                onClick={handleLogout}
             > (logout) </a>
         </>
     )

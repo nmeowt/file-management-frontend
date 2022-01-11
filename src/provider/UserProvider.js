@@ -8,25 +8,26 @@ const UserProvider = (props) => {
     const [isLogined, setIsLogined] = useState(false);
 
     const handleLogin = () => {
-        var formBody = []
         setError([])
-        for (const name in user) {
-            formBody.push(name + "=" + user[name])
-        }
-        formBody = formBody.join("&")
-        Auth.login(formBody, setError, setIsLogined)
-        formBody = [];
+        return Auth.login(user, setError, setIsLogined)
     }
+
+    const handleLogout = () => {
+        return Auth.logout(setError, setIsLogined);
+    }
+
 
     return (
         <UserContext.Provider
             value={{
                 handleLogin,
+                user,
                 setUser,
                 error,
                 setError,
                 isLogined,
                 setIsLogined,
+                handleLogout
             }}
         >
             {props.children}

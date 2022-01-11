@@ -1,21 +1,22 @@
 import './App.css';
 import Dashboard from './routes/dashboard/Dashboard';
 import Login from './routes/login/Login';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import UserContext from './context/UserContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Auth } from './api/auth';
-import RequireAuth from './routes/login/RequireAuth';
+import BuildRoute from './components/BuildRoute';
 
 function App() {
-  const { setIsLogined } = useContext(UserContext)
+  const { isLogined, setIsLogined } = useContext(UserContext)
 
   useEffect(() => {
     checkAuth()
   }, [])
 
   const checkAuth = () => {
-    let auth = Auth.isAuthen();
+    const auth = Auth.isAuthen();
+
     if (auth) {
       setIsLogined(true);
     } else {
@@ -24,17 +25,15 @@ function App() {
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route index path="/" element={
-          <RequireAuth>
-            <Dashboard />
-          </RequireAuth>
-        } />
+    <BuildRoute
+      isLogined={isLogined}
+      unauthorizeRoutes={<Login />}
+    >
+      <Route path="/" element={<Dashboard />}>
         <Route path="/folder/:id" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+      </Route>
+      <Route path="/login" element={<Login />} />
+    </BuildRoute>
   );
 }
 
