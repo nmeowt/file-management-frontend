@@ -25,8 +25,18 @@ const Login = () => {
                             <div>
                                 <input className="mt-1" placeholder="Username" name="username" onChange={handleChange} />
                                 <input className="mt-1" placeholder="Password" type="password" name="password" onChange={handleChange} />
-                                {error.length > 0 ? error.map((err, index) => <i key={index} style={{ color: "rgb(254, 170, 67)", fontSize: 12 }}>{err}</i>) : null}
+                                {
+                                    error.length > 0
+                                        ? error.map((err, index) => <i key={index} style={{ color: "rgb(254, 170, 67)", fontSize: 12 }}>{err}</i>)
+                                        : null
+                                }
                                 <button className="mt-1 btnLogin" onClick={handleSubmit}>Login</button>
+                            </div>
+                            <div className="linethough">
+                                <span>or</span>
+                            </div>
+                            <div >
+                                <a href="/signup">Create account</a>
                             </div>
                         </div>
                     </div>

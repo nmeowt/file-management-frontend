@@ -323,3 +323,29 @@ hr {
 .app_preview .app_title {
     font-weight: 700;
 }
+
+.linethough {
+    position: relative;
+    z-index: 1;
+    margin: 10px auto;
+}
+
+.linethough:before {
+    border-top: 1px solid #dfdfdf;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    z-index: -1;
+}
+
+.linethough span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px;
+    font-style: italic;
+}
