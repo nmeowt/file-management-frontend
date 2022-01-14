@@ -1,5 +1,5 @@
 import consts from "../consts"
-import { api, buildUrl } from "../utils/helper"
+import { api, buildUrl, getCookie } from "../utils/helper"
 
 export const StorageApi = {
     get_storage_by_id(id) {
@@ -20,6 +20,10 @@ export const StorageApi = {
         return api(
             "GET",
             buildUrl(consts.FOLDER, params),
+            {},
+            null,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     },
     create_new_folder(data) {
@@ -41,6 +45,10 @@ export const StorageApi = {
         return api(
             "GET",
             buildUrl(consts.FILE, params),
+            {},
+            null,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     },
     create_new_file(data) {

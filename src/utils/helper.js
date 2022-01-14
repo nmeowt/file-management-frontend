@@ -5,33 +5,40 @@ export const api = async function (
     url,
     headers = null,
     body = null,
+    bearerToken,
     authenReqired = false
 ) {
-    if (authenReqired) {
+    if (authenReqired && !bearerToken) {
         return;
     }
 
-    let config = null;
+    if (bearerToken) {
+        headers = { ...headers, Authorization: `Bearer ${bearerToken}` };
+    }
+
+    let config = {
+        headers,
+        method,
+        mode: "cors",
+        withCredentials: true,
+        credentials: 'include',
+    }
+
     let bodi = body ? body : null;
 
     if (body) {
         config = {
-            method,
-            headers,
-            mode: "cors",
-            credentials: 'include',
+            ...config,
             body: bodi
         };
     }
 
-    let result = fetch(url, config).then(response => {
+    return fetch(url, config).then(response => {
         if (!response.ok) {
             throw response;
         }
         return response.json();
-    });
-
-    return result;
+    })
 };
 
 export const useModal = () => {
