@@ -20,7 +20,7 @@ export const StorageApi = {
         return api(
             "GET",
             buildUrl(consts.FOLDER, params),
-            {},
+            null,
             null,
             getCookie(consts.STORAGE_KEY),
             true
@@ -33,7 +33,9 @@ export const StorageApi = {
             {
                 'content-type': 'application/x-www-form-urlencoded'
             },
-            data
+            data,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     },
     get_all_file(parent, offset = 0, limit = 100) {
@@ -45,7 +47,7 @@ export const StorageApi = {
         return api(
             "GET",
             buildUrl(consts.FILE, params),
-            {},
+            null,
             null,
             getCookie(consts.STORAGE_KEY),
             true
@@ -58,7 +60,9 @@ export const StorageApi = {
             {
                 'content-type': 'application/x-www-form-urlencoded'
             },
-            data
+            data,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     },
     upload_file(data) {
@@ -66,7 +70,9 @@ export const StorageApi = {
             "POST",
             consts.UPLOAD_FILE,
             {},
-            data
+            data,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     },
     download_folder(id) {
@@ -76,6 +82,10 @@ export const StorageApi = {
         return api(
             "GET",
             buildUrl(consts.DOWNLOAD_FOLDER, params),
+            {},
+            null,
+            getCookie(consts.STORAGE_KEY),
+            true
         )
     }
 }

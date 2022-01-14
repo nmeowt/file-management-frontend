@@ -29,10 +29,8 @@ function App() {
       isLogined={isLogined}
       unauthorizeRoutes={<Login />}
     >
-      <Route path="/" element={<Dashboard />}>
-        <Route path="/folder/:id" element={<Dashboard />} />
-      </Route>
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/folder/:id" element={<Dashboard />} />
     </BuildRoute>
   );
 }

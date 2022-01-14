@@ -16,6 +16,7 @@ const Dashboard = () => {
     const [type, setType] = useState({})
     const [name, setName] = useState('')
     const [body, setBody] = useState(null)
+    const [error, setError] = useState(null)
 
     const { id } = useParams();
 
@@ -41,15 +42,22 @@ const Dashboard = () => {
 
                 StorageApi.create_new_file(convertFormBody(data)).then(() => {
                     fetchFile(parent)
-                })
-            })
+                    setShowing(false)
+                }).catch(err => {
+                    setError(err.statusText)
+                });
+            }).catch(err => {
+                setError(err.statusText)
+            });
 
         } else {
             StorageApi.create_new_folder(convertFormBody(data)).then(() => {
                 fetchFolder(parent)
-            })
+                setShowing(false)
+            }).catch(err => {
+                setError(err.statusText)
+            });
         }
-        setShowing(false)
     }
 
     const fetchUploadFile = (parent) => {
@@ -118,6 +126,7 @@ const Dashboard = () => {
                             ? <input type="file" name="body" onChange={onChangeFileHandle} />
                             : <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
                     }
+                    {error ? <i style={{ color: "#e4798d", fontSize: 12 }}>Error: {error}</i> : null}
                 </Modal>
             </div>
             <div className="dashboard-storage">

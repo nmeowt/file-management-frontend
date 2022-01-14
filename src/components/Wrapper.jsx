@@ -1,5 +1,5 @@
-export default ({ children }) => <div className="wrapper">
-    <style jsx>{`
+export default ({ children }) => (<div className="wrapper">
+  <style jsx>{`
     .wrapper {
         display: flex;
         flex-flow: row wrap;
@@ -8,5 +8,5 @@ export default ({ children }) => <div className="wrapper">
         row-gap: 16px;
     }
   `}</style>
-    {children}
-</div>
+  {children}
+</div>)

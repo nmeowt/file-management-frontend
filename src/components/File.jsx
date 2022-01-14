@@ -7,7 +7,7 @@ const File = ({ data, onClickedInfoHandler }) => {
     let preview = FileIcon
     const url = "http://localhost:8000" + data.location
     const ext = data.body.split(".")[1];
-    if (ext === "jpg" || ext === "png") {
+    if (ext === "jpg" || ext === "png" || ext === "JPG" || ext === "PNG") {
         preview = url
     }
 
@@ -15,7 +15,7 @@ const File = ({ data, onClickedInfoHandler }) => {
         <div
             className="file-grid grid"
         >
-            <img src={InfoIcon} className="info-icon" onClick={(e) => onClickedInfoHandler(e, url)} />
+            <img src={InfoIcon} className="info-icon" alt="icon" onClick={(e) => onClickedInfoHandler(e, url)} />
             <div className="info-image">
                 <img src={preview} alt="icon" className="icon" />
             </div>
